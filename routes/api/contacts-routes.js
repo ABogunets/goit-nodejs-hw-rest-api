@@ -10,20 +10,20 @@ const router = express.Router();
 
 router.get("/", contactsController.getAllContacts);
 
-router.get("/:id", contactsController.getContactById);
+// router.get("/:id", contactsController.getContactById);
 
 router.post(
   "/",
-  validateBody(schemas.contactsAddSchema),
+  // validateBody(schemas.contactsAddSchema),
   contactsController.addContact
 );
 
-router.put(
-  "/:id",
-  validateBody(schemas.contactsAddSchema),
-  contactsController.updateContactById
-);
+// router.put(
+//   "/:id",
+//   validateBody(schemas.contactsAddSchema),
+//   contactsController.updateContactById
+// );
 
-router.delete("/:id", contactsController.deleteContact);
+// router.delete("/:id", contactsController.deleteContact);
 
 module.exports = router;
