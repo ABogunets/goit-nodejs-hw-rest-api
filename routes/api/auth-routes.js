@@ -1,6 +1,10 @@
 const express = require("express");
 
-const authController = require("../../controllers/auth-controller");
+const { register } = require("../../controllers/auth");
+const { login } = require("../../controllers/auth");
+const { logout } = require("../../controllers/auth");
+const { getCurrent } = require("../../controllers/auth");
+const { updateUserSubscription } = require("../../controllers/auth");
 
 const router = express.Router();
 
@@ -10,20 +14,19 @@ const { validateBody } = require("../../decorators");
 
 const { authenticate } = require("../../middlewares");
 
-router.post(
-  "/signup",
-  validateBody(schemas.userRegisterSchema),
-  authController.signup
+router.post("/register", validateBody(schemas.userRegisterSchema), register);
+
+router.post("/login", validateBody(schemas.userLoginSchema), login);
+
+router.post("/logout", authenticate, logout);
+
+router.get("/current", authenticate, getCurrent);
+
+router.patch(
+  "/",
+  authenticate,
+  validateBody(schemas.userSubscriptionSchema),
+  updateUserSubscription
 );
-
-router.post(
-  "/signin",
-  validateBody(schemas.userLoginSchema),
-  authController.signin
-);
-
-router.get("/current", authenticate, authController.getCurrent);
-
-router.post("/logout", authenticate, authController.logout);
 
 module.exports = router;
