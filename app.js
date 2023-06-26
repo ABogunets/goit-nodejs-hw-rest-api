@@ -18,35 +18,6 @@ app.use(express.static("public"));
 app.use("/api/users", authRouter);
 app.use("/api/contacts", contactsRouter);
 
-// -- Nodemailer
-const nodemailer = require("nodemailer");
-const { UKR_NET_EMAIL, UKR_NET_PASSWORD } = process.env;
-
-const nodemailerConfig = {
-  host: "smtp.ukr.net",
-  port: 465,
-  secure: true,
-  auth: {
-    user: UKR_NET_EMAIL,
-    pass: UKR_NET_PASSWORD,
-  },
-};
-
-const transporter = nodemailer.createTransport(nodemailerConfig);
-const emailOptions = {
-  from: UKR_NET_EMAIL,
-  to: "vebanol330@aaorsi.com",
-  subject: "Nodemailer test",
-  text: "Hello, this is a Nodemailer test!",
-};
-
-transporter
-  .sendMail(emailOptions)
-  .then((info) => console.log(info))
-  .catch((err) => console.log(err));
-
-// ----
-
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
