@@ -35,8 +35,16 @@ const userSubscriptionSchema = Joi.object({
     }),
 });
 
+const userEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required().messages({
+    "string.empty": `"email" cannot be an empty field`,
+    "any.required": `missing required "email" field`,
+  }),
+});
+
 module.exports = {
   userRegisterSchema,
   userLoginSchema,
   userSubscriptionSchema,
+  userEmailSchema,
 };
